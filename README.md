@@ -4,12 +4,6 @@ A simple and intuitive Android application built with Kotlin that helps users tr
 
 ---
 
-## 📱 Screenshots
-
-> Add your screenshots here
-
----
-
 ## ✨ Features
 
 - ➕ Add expenses with title, amount, category, date, and note
