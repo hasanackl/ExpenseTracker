@@ -31,7 +31,6 @@ class AddExpenseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_expense)
-
         window.statusBarColor = getColor(R.color.primary)
 
         setupToolbar()
@@ -45,7 +44,6 @@ class AddExpenseActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
     }
 
@@ -58,25 +56,18 @@ class AddExpenseActivity : AppCompatActivity() {
         btnSave = findViewById(R.id.btnSave)
         tilTitle = etTitle.parent.parent as TextInputLayout
         tilAmount = etAmount.parent.parent as TextInputLayout
-
-        // Default date: today
         setDateText(calendar)
     }
 
     private fun setupCategorySpinner() {
         val categories = resources.getStringArray(R.array.categories)
-        val spinnerAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            categories
-        )
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerCategory.adapter = spinnerAdapter
     }
 
     private fun setupDatePicker() {
         etDate.setOnClickListener { showDatePicker() }
-
         val tilDate = etDate.parent.parent
         if (tilDate is com.google.android.material.textfield.TextInputLayout) {
             tilDate.setEndIconOnClickListener { showDatePicker() }
@@ -103,15 +94,12 @@ class AddExpenseActivity : AppCompatActivity() {
 
     private fun setupSaveButton() {
         btnSave.setOnClickListener {
-            if (validateInputs()) {
-                saveExpense()
-            }
+            if (validateInputs()) saveExpense()
         }
     }
 
     private fun validateInputs(): Boolean {
         var isValid = true
-
         val title = etTitle.text.toString().trim()
         if (title.isEmpty()) {
             tilTitle.error = getString(R.string.error_empty_title)
@@ -119,7 +107,6 @@ class AddExpenseActivity : AppCompatActivity() {
         } else {
             tilTitle.error = null
         }
-
         val amountStr = etAmount.text.toString().trim()
         if (amountStr.isEmpty()) {
             tilAmount.error = getString(R.string.error_empty_amount)
@@ -133,19 +120,18 @@ class AddExpenseActivity : AppCompatActivity() {
                 tilAmount.error = null
             }
         }
-
         return isValid
     }
 
     private fun saveExpense() {
         val expense = Expense(
+            id = "",
             title = etTitle.text.toString().trim(),
             amount = etAmount.text.toString().trim().toDouble(),
             category = spinnerCategory.selectedItem.toString(),
             date = etDate.text.toString(),
             note = etNote.text.toString().trim()
         )
-
         viewModel.addExpense(expense)
         Toast.makeText(this, "Expense saved!", Toast.LENGTH_SHORT).show()
         finish()

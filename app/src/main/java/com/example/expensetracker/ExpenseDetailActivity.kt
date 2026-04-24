@@ -33,7 +33,6 @@ class ExpenseDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expense_detail)
-
         window.statusBarColor = getColor(R.color.primary)
 
         setupToolbar()
@@ -59,7 +58,7 @@ class ExpenseDetailActivity : AppCompatActivity() {
     }
 
     private fun loadExpenseData() {
-        val id = intent.getIntExtra(EXTRA_EXPENSE_ID, 0)
+        val id = intent.getStringExtra(EXTRA_EXPENSE_ID) ?: ""
         val title = intent.getStringExtra(EXTRA_EXPENSE_TITLE) ?: ""
         val amount = intent.getDoubleExtra(EXTRA_EXPENSE_AMOUNT, 0.0)
         val category = intent.getStringExtra(EXTRA_EXPENSE_CATEGORY) ?: ""
