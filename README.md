@@ -1,11 +1,12 @@
 # 💰 Expense Tracker
 
-A simple and intuitive Android application built with Kotlin that helps users track their daily expenses.
+A simple and intuitive Android application built with Kotlin that helps users track their daily expenses. Users can register and log in securely, and all data is stored in the cloud using Firebase Firestore.
 
 ---
 
 ## ✨ Features
 
+- 🔐 User registration and login with Firebase Authentication
 - ➕ Add expenses with title, amount, category, date, and note
 - 📋 View all expenses in a clean list sorted by most recent
 - 💵 See total amount spent with transaction count
@@ -15,6 +16,7 @@ A simple and intuitive Android application built with Kotlin that helps users tr
 - 🔍 View detailed information for each expense
 - 🗑️ Delete expenses with confirmation dialog
 - 📅 Date picker for selecting expense date
+- ☁️ Cloud storage — data syncs in real time via Firebase Firestore
 
 ---
 
@@ -24,45 +26,41 @@ A simple and intuitive Android application built with Kotlin that helps users tr
 |------------|---------|
 | Kotlin | Primary programming language |
 | Android Studio | IDE |
-| Room Database | Local data storage |
+| Firebase Firestore | Cloud database |
+| Firebase Authentication | User registration and login |
 | ViewModel + Flow | MVVM architecture |
 | RecyclerView | Expense list |
 | Material Design 3 | UI components |
 | MPAndroidChart | Pie chart visualization |
 | Coroutines | Async database operations |
-| KSP | Annotation processing |
 
 ---
 
 ## 🏗️ Architecture
 
 The app follows the **MVVM (Model-View-ViewModel)** architecture pattern:
-
-```
-UI Layer        → MainActivity, AddExpenseActivity, ExpenseDetailActivity
-ViewModel Layer → ExpenseViewModel
+UI Layer         → LoginActivity, RegisterActivity, MainActivity,
+AddExpenseActivity, ExpenseDetailActivity
+ViewModel Layer  → ExpenseViewModel
 Repository Layer → ExpenseRepository
-Data Layer      → Expense, ExpenseDao, ExpenseDatabase (Room)
-```
+Data Layer       → Expense (data class), Firebase Firestore
+Auth Layer       → Firebase Authentication
 
 ---
 
 ## 📂 Project Structure
-
-```
 com.example.expensetracker/
 ├── data/
 │   ├── Expense.kt
-│   ├── ExpenseDao.kt
-│   ├── ExpenseDatabase.kt
 │   └── ExpenseRepository.kt
 ├── adapter/
 │   └── ExpenseAdapter.kt
 ├── ExpenseViewModel.kt
+├── LoginActivity.kt
+├── RegisterActivity.kt
 ├── MainActivity.kt
 ├── AddExpenseActivity.kt
 └── ExpenseDetailActivity.kt
-```
 
 ---
 
@@ -74,8 +72,9 @@ git clone https://github.com/hasanackl/ExpenseTracker.git
 ```
 
 2. Open the project in **Android Studio**
-3. Let Gradle sync complete
-4. Run on an emulator or physical device (minimum API 24)
+3. Add your own `google-services.json` file to the `app/` directory (from Firebase Console)
+4. Let Gradle sync complete
+5. Run on an emulator or physical device (minimum API 24)
 
 ---
 
@@ -85,5 +84,5 @@ git clone https://github.com/hasanackl/ExpenseTracker.git
 - Minimum SDK: API 24 (Android 7.0)
 - Target SDK: API 35 (Android 15)
 - Gradle 9.3.1
+- Firebase project with Firestore and Authentication enabled
 
----
